@@ -1,0 +1,441 @@
+{
+  "info": {
+    "name": "Dummy OTP API Collection",
+    "description": "Complete collection for testing the Dummy OTP API endpoints with different response types (2xx, 4xx, 5xx)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "dummy-otp-api-collection"
+  },
+  "item": [
+    {
+      "name": "Generate OTP",
+      "item": [
+        {
+          "name": "Generate OTP - Success (200)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"9618902852\",\n  \"country\": \"+91\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/generate",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "generate"]
+            },
+            "description": "Generate OTP for a valid phone number. Returns 200 status with verification_id."
+          },
+          "response": []
+        },
+        {
+          "name": "Generate OTP - Client Error (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"9876543210\",\n  \"country\": \"+91\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/generate",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "generate"]
+            },
+            "description": "Generate OTP for a phone number configured to return client error. Returns 400 status."
+          },
+          "response": []
+        },
+        {
+          "name": "Generate OTP - Server Error (500)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"5555555555\",\n  \"country\": \"+1\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/generate",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "generate"]
+            },
+            "description": "Generate OTP for a phone number configured to return server error. Returns 500 status."
+          },
+          "response": []
+        },
+        {
+          "name": "Generate OTP - Missing Fields (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"9618902852\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/generate",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "generate"]
+            },
+            "description": "Generate OTP with missing country field. Returns 400 status."
+          },
+          "response": []
+        }
+      ],
+      "description": "Collection of requests for the Generate OTP endpoint"
+    },
+    {
+      "name": "Resend OTP",
+      "item": [
+        {
+          "name": "Resend OTP - Success (200)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"verification_id\": \"gvid_1243f\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/resend",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "resend"]
+            },
+            "description": "Resend OTP using a valid verification ID. Returns 200 status with success: true."
+          },
+          "response": []
+        },
+        {
+          "name": "Resend OTP - Client Error (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"verification_id\": \"gvid_error_400\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/resend",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "resend"]
+            },
+            "description": "Resend OTP using a verification ID configured to return client error. Returns 400 status."
+          },
+          "response": []
+        },
+        {
+          "name": "Resend OTP - Server Error (500)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"verification_id\": \"gvid_error_500\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/resend",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "resend"]
+            },
+            "description": "Resend OTP using a verification ID configured to return server error. Returns 500 status."
+          },
+          "response": []
+        },
+        {
+          "name": "Resend OTP - Invalid ID (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"verification_id\": \"invalid_id\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/resend",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "resend"]
+            },
+            "description": "Resend OTP using an invalid verification ID. Returns 400 status."
+          },
+          "response": []
+        }
+      ],
+      "description": "Collection of requests for the Resend OTP endpoint"
+    },
+    {
+      "name": "Verify OTP",
+      "item": [
+        {
+          "name": "Verify OTP - Success (200)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"otp\": \"1234\",\n  \"verification_id\": \"gvid_1243f\",\n  \"referral_code\": \"test123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/verify",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "verify"]
+            },
+            "description": "Verify OTP with valid credentials. Returns 200 status with user_id and payment_link. Sets session cookie."
+          },
+          "response": []
+        },
+        {
+          "name": "Verify OTP - Without Referral Code (200)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"otp\": \"1234\",\n  \"verification_id\": \"gvid_1243f\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/verify",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "verify"]
+            },
+            "description": "Verify OTP without referral code. Returns 200 status with user_id and payment_link. Sets session cookie."
+          },
+          "response": []
+        },
+        {
+          "name": "Verify OTP - Invalid OTP (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"otp\": \"abcd\",\n  \"verification_id\": \"gvid_1243f\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/verify",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "verify"]
+            },
+            "description": "Verify OTP with invalid OTP format. Returns 400 status."
+          },
+          "response": []
+        },
+        {
+          "name": "Verify OTP - Short OTP (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"otp\": \"12\",\n  \"verification_id\": \"gvid_1243f\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/verify",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "verify"]
+            },
+            "description": "Verify OTP with short OTP (less than 4 digits). Returns 400 status."
+          },
+          "response": []
+        },
+        {
+          "name": "Verify OTP - Client Error (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"otp\": \"1234\",\n  \"verification_id\": \"gvid_error_400\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/verify",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "verify"]
+            },
+            "description": "Verify OTP with verification ID configured to return client error. Returns 400 status."
+          },
+          "response": []
+        },
+        {
+          "name": "Verify OTP - Server Error (500)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"otp\": \"1234\",\n  \"verification_id\": \"gvid_error_500\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/verify",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "verify"]
+            },
+            "description": "Verify OTP with verification ID configured to return server error. Returns 500 status."
+          },
+          "response": []
+        },
+        {
+          "name": "Verify OTP - Missing Fields (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"otp\": \"1234\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/otp/verify",
+              "host": ["{{base_url}}"],
+              "path": ["otp", "verify"]
+            },
+            "description": "Verify OTP with missing verification_id field. Returns 400 status."
+          },
+          "response": []
+        }
+      ],
+      "description": "Collection of requests for the Verify OTP endpoint"
+    },
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Health Check (200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            },
+            "description": "Check if the API server is running. Returns 200 status with server information."
+          },
+          "response": []
+        }
+      ],
+      "description": "Health check endpoint"
+    },
+    {
+      "name": "Error Handling",
+      "item": [
+        {
+          "name": "Invalid Endpoint (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/invalid",
+              "host": ["{{base_url}}"],
+              "path": ["invalid"]
+            },
+            "description": "Test invalid endpoint. Returns 404 status with error message."
+          },
+          "response": []
+        }
+      ],
+      "description": "Error handling tests"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string",
+      "description": "Base URL for the Dummy OTP API"
+    }
+  ]
+} 
