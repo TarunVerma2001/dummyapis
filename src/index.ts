@@ -3,9 +3,11 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import otpRoutes from './routes/otpRoutes';
+import fs from 'fs';
+import https from 'https';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 443;
 
 // Middleware
 app.use(helmet());
@@ -26,7 +28,7 @@ app.get('/health', (req, res) => {
   });
 });
 
-// 404 handler
+// 404 handle
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
@@ -49,9 +51,15 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Dummy OTP API server running on port ${PORT}`);
+// HTTPS options using Certbot certificates
+const httpsOptions = {
+  key: fs.readFileSync('/etc/letsencrypt/live/stg.infra.servicegtd.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/stg.infra.servicegtd.com/fullchain.pem')
+};
+
+// Start HTTPS server
+https.createServer(httpsOptions, app).listen(PORT, () => {
+  console.log(`🚀 Dummy OTP API HTTPS server running on port ${PORT}`);
   console.log(`📱 Available endpoints:`);
   console.log(`   POST /otp/generate - Generate OTP`);
   console.log(`   POST /otp/resend - Resend OTP`);
