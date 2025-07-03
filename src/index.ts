@@ -28,7 +28,7 @@ app.get('/health', (req, res) => {
   });
 });
 
-// 404 handler
+// 404 handle
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
