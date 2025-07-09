@@ -23,7 +23,7 @@ export class OtpController {
       const request: GenerateOtpRequest = req.body;
       
       // Validate request
-      if (!request.phone || !request.country) {
+      if (!request.number || !request.country_code) {
         res.status(400).json({
           success: false,
           error: {
@@ -39,7 +39,7 @@ export class OtpController {
       // Determine status code based on response
       if ('success' in result && !result.success) {
         // Check if it's a client error or server error based on phone number
-        const phoneConfig = this.getPhoneConfig(request.phone, request.country);
+        const phoneConfig = this.getPhoneConfig(request.number, request.country_code);
         const statusCode = phoneConfig?.responseType === 'server_error' ? 500 : 400;
         res.status(statusCode).json(result);
       } else {
@@ -145,9 +145,9 @@ export class OtpController {
   /**
    * Helper method to get phone configuration
    */
-  private getPhoneConfig(phone: string, country: string) {
+  private getPhoneConfig(number: string, country_code: string) {
     return phoneConfigs.find(
-      (config: any) => config.phone === phone && config.country === country
+      (config: any) => config.number === number && config.country_code === country_code
     );
   }
   

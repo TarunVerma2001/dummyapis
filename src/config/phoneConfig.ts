@@ -3,23 +3,23 @@ import { PhoneConfig } from '../types';
 // Phone configurations for different response types
 export const phoneConfigs: PhoneConfig[] = [
   {
-    phone: '9618902852',
-    country: '+91',
+    number: '9618902852',
+    country_code: '+91',
     responseType: 'success',
     verification_id: 'gvid_1243f',
     user_id: 'uid_1243f',
     payment_link: 'pay_hjj'
   },
   {
-    phone: '9876543210',
-    country: '+91',
+    number: '9876543210',
+    country_code: '+91',
     responseType: 'client_error',
     verification_id: 'gvid_error_400',
     user_id: 'uid_error_400'
   },
   {
-    phone: '5555555555',
-    country: '+1',
+    number: '5555555555',
+    country_code: '+1',
     responseType: 'server_error',
     verification_id: 'gvid_error_500',
     user_id: 'uid_error_500'

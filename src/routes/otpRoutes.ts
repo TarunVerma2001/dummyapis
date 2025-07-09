@@ -5,7 +5,7 @@ const router = Router();
 const otpController = new OtpController();
 
 // OTP routes
-router.post('/generate', otpController.generateOtp);
+router.post('/send', otpController.generateOtp);
 router.post('/resend', otpController.resendOtp);
 router.post('/verify', otpController.verifyOtp);
 

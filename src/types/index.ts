@@ -1,7 +1,7 @@
 // Request types
 export interface GenerateOtpRequest {
-  phone: string;
-  country: string;
+  number: string;
+  country_code: string;
 }
 
 export interface ResendOtpRequest {
@@ -33,13 +33,13 @@ export interface ErrorResponse {
   error: {
     msg: string;
     code: string;
-  };
+  };  
 }
 
 // Phone number configurations for different responses
 export interface PhoneConfig {
-  phone: string;
-  country: string;
+  number: string;
+  country_code: string;
   responseType: 'success' | 'client_error' | 'server_error';
   verification_id?: string;
   user_id?: string;

@@ -11,13 +11,18 @@ const PORT = process.env.PORT || 443;
 
 // Middleware
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://localhost:5173'], // Allow localhost:5173
+  credentials: true, // Allow credentials
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}));
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use('/otp', otpRoutes);
+app.use('/auth/otp', otpRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -61,7 +66,7 @@ const httpsOptions = {
 https.createServer(httpsOptions, app).listen(PORT, () => {
   console.log(`🚀 Dummy OTP API HTTPS server running on port ${PORT}`);
   console.log(`📱 Available endpoints:`);
-  console.log(`   POST /otp/generate - Generate OTP`);
+  console.log(`   POST /otp/send - Generate OTP`);
   console.log(`   POST /otp/resend - Resend OTP`);
   console.log(`   POST /otp/verify - Verify OTP`);
   console.log(`   GET  /health - Health check`);

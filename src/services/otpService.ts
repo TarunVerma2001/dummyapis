@@ -15,11 +15,11 @@ export class OtpService {
    * Generate OTP for a phone number
    */
   generateOtp(request: GenerateOtpRequest): GenerateOtpResponse | ErrorResponse {
-    const { phone, country } = request;
+    const { number, country_code } = request;
     
     // Find phone configuration
     const phoneConfig = phoneConfigs.find(
-      config => config.phone === phone && config.country === country
+      config => config.number === number && config.country_code === country_code
     );
     
     if (!phoneConfig) {
