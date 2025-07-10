@@ -7,12 +7,12 @@ import fs from 'fs';
 import https from 'https';
 
 const app = express();
-const PORT = process.env.PORT || 443;
+const PORT = process.env.PORT || 80;
 
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://localhost:5173'], // Allow localhost:5173
+  origin: ['http://frontend.stg.infra.servicegtd.com', 'https://frontend.stg.infra.servicegtd.com'], // Allow localhost:5173
   credentials: true, // Allow credentials
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
@@ -57,18 +57,14 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 });
 
 // HTTPS options using Certbot certificates
-const httpsOptions = {
-  key: fs.readFileSync('/etc/letsencrypt/live/stg.infra.servicegtd.com/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/stg.infra.servicegtd.com/fullchain.pem')
-};
 
 // Start HTTPS server
-https.createServer(httpsOptions, app).listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`🚀 Dummy OTP API HTTPS server running on port ${PORT}`);
   console.log(`📱 Available endpoints:`);
-  console.log(`   POST /otp/send - Generate OTP`);
-  console.log(`   POST /otp/resend - Resend OTP`);
-  console.log(`   POST /otp/verify - Verify OTP`);
+  console.log(`   POST /auth/otp/send - Generate OTP`);
+  console.log(`   POST /auth/otp/resend - Resend OTP`);
+  console.log(`   POST /auth/otp/verify - Verify OTP`);
   console.log(`   GET  /health - Health check`);
   console.log(`\n📋 Test phone numbers:`);
   console.log(`   Success (200): 9618902852 (+91)`);
