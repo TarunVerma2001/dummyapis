@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 80;
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: ['http://frontend.stg.infra.servicegtd.com', 'https://frontend.stg.infra.servicegtd.com'], // Allow localhost:5173
+  origin: ['http://api-gateway.stg.infra.servicegtd.com/', 'https://api-gateway.stg.infra.servicegtd.com/'], // Allow localhost:5173
   credentials: true, // Allow credentials
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
