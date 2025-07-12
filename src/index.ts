@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/auth/otp', otpRoutes);
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/auth/health', (req, res) => {
   res.status(200).json({ 
     status: 'OK', 
     message: 'Dummy OTP API is running',
@@ -65,7 +65,7 @@ app.listen(PORT, () => {
   console.log(`   POST /auth/otp/send - Generate OTP`);
   console.log(`   POST /auth/otp/resend - Resend OTP`);
   console.log(`   POST /auth/otp/verify - Verify OTP`);
-  console.log(`   GET  /health - Health check`);
+  console.log(`   GET  /auth/health - Health check`);
   console.log(`\n📋 Test phone numbers:`);
   console.log(`   Success (200): 9618902852 (+91)`);
   console.log(`   Client Error (400): 9876543210 (+91)`);
