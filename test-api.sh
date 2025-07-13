@@ -65,7 +65,7 @@ curl -X POST $BASE_URL/otp/verify \
 echo ""
 echo "8. Testing Health Check (200)"
 echo "-----------------------------"
-curl $BASE_URL/health \
+curl $BASE_URL/auth/health \
   -w "\nHTTP Status: %{http_code}\n"
 
 echo ""
